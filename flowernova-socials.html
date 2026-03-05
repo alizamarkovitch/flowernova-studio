@@ -20,10 +20,10 @@ html { scroll-behavior:smooth; }
   --off-white: #F2EDE8;
 }
 
-body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; cursor:none; }
+body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; }
 
-.cursor      { width:8px;height:8px;background:var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s; }
-.cursor-ring { width:36px;height:36px;border:1px solid var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s; }
+
+
 
 .irid { background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 
@@ -55,11 +55,11 @@ nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
 
 /* ── HERO ── */
 #hero { min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:9vh; }
-.hero-photo { position:absolute;inset:0;background:url('hero-flower.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
+.hero-photo { position:absolute;inset:0;background:url('https://i.imgur.com/CPG50Yy.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
 .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(38,13,54,.28) 0%,rgba(38,13,54,.15) 35%,rgba(38,13,54,.72) 70%,rgba(38,13,54,.95) 100%); }
 .hero-content { position:relative;z-index:2;animation:fadeUp 1.2s ease .3s forwards;opacity:0; }
 .hero-label { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;display:block; }
-.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(52px,9vw,120px);line-height:.92;letter-spacing:-.02em;margin-bottom:10px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(52px,9vw,120px);line-height:.92;letter-spacing:-.02em;margin-bottom:20px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 .hero-sub { font-family:'Cormorant',serif;font-weight:300;font-style:italic;font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 40px;line-height:1.65; }
 .hero-cta { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 44px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s; }
 .hero-cta:hover { opacity:.85;transform:translateY(-2px); }
@@ -116,7 +116,7 @@ nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
 .form-input:focus,.form-select:focus,.form-textarea:focus { border-color:rgba(200,168,216,.5);background:rgba(255,255,255,.09); }
 .form-select option { background:var(--plum);color:white; }
 .form-textarea { min-height:100px;resize:vertical; }
-.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:17px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);cursor:none;margin-top:6px;transition:opacity .3s,transform .3s; }
+.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:17px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);margin-top:6px;transition:opacity .3s,transform .3s; }
 .form-submit:hover { opacity:.88;transform:translateY(-2px); }
 
 /* ── OTHER ENQUIRIES note ── */
@@ -155,19 +155,17 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
 <nav id="nav">
   <a href="./index.html" class="nav-logo irid">FlowerNova</a>
   <ul class="nav-links">
-    <li><a href="flowernova-website.html#about">About</a></li>
+    <li><a href="./index.html">Home</a></li>
     <li><a href="./flowernova-socials.html">Socials</a></li>
-    <li><a href="./flowernova-community.html">Community Project</a></li>
-    <li><a href="./index.html#services">Floral Services</a></li>
+    <li><a href="./flowernova-community.html">Community</a></li>
+    <li><a href="./index.html#gallery">Work</a></li>
   </ul>
-  <a href="#inquiry" class="nav-cta">Venue inquiry</a>
+  <a href="#inquiry" class="nav-cta">Inquire</a>
 </nav>
 
 <!-- HERO -->
@@ -225,14 +223,54 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
 
 <div class="divider"></div>
 
+<!-- PROOF BLOCK -->
+<section class="pitch" style="display:block;padding:100px 80px;">
+  <div style="max-width:1300px;margin:0 auto;">
+    <span class="pitch-label reveal">Past Socials</span>
+    <h2 class="pitch-title reveal rd1" style="margin-bottom:16px;">A few moments from <em>past events</em></h2>
+    <p class="pitch-body reveal rd2" style="margin-bottom:48px;">The vibe is warm, creative, and community-forward.</p>
+
+    <!-- Photo grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:64px;" class="reveal rd2">
+      <div style="background:var(--off-white);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);">Photo</span></div>
+      <div style="background:var(--plum);opacity:.3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);opacity:3;">Photo</span></div>
+      <div style="background:var(--off-white);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);">Photo</span></div>
+      <div style="background:var(--plum);opacity:.3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);opacity:3;">Photo</span></div>
+      <div style="background:var(--off-white);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);">Photo</span></div>
+      <div style="background:var(--plum);opacity:.3;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--lavender);opacity:3;">Photo</span></div>
+    </div>
+
+    <!-- Testimonials -->
+    <span class="pitch-label reveal">What guests say</span>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-top:24px;">
+      <div class="resp-card resp-venue reveal rd1" style="padding:32px 36px;">
+        <p style="font-family:'Cormorant',serif;font-style:italic;font-size:19px;line-height:1.75;color:rgba(61,31,78,.75);">"I left feeling so grounded — and my arrangement was actually gorgeous."</p>
+      </div>
+      <div class="resp-card resp-venue reveal rd2" style="padding:32px 36px;">
+        <p style="font-family:'Cormorant',serif;font-style:italic;font-size:19px;line-height:1.75;color:rgba(61,31,78,.75);">"The energy was so welcoming. It felt like the easiest way to meet new people in the city."</p>
+      </div>
+      <div class="resp-card resp-venue reveal rd3" style="padding:32px 36px;">
+        <p style="font-family:'Cormorant',serif;font-style:italic;font-size:19px;line-height:1.75;color:rgba(61,31,78,.75);">"Thoughtful, organized, and fun — the perfect creative night out."</p>
+      </div>
+      <div class="resp-card resp-venue reveal rd4" style="padding:32px 36px;">
+        <p style="font-family:'Cormorant',serif;font-style:italic;font-size:19px;line-height:1.75;color:rgba(61,31,78,.75);">"Best part: I didn't have to be 'good at flowers.' I just got to play."</p>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:28px;font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--mauve);">Previous socials have sold out · 15 guests</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- INQUIRY FORM -->
 <div class="inquiry-wrap" id="inquiry">
   <div class="blob" style="width:400px;height:400px;background:radial-gradient(#9060D0,#5040B0);top:-100px;right:-80px;opacity:.18;"></div>
   <div class="blob" style="width:280px;height:280px;background:radial-gradient(#E0B030,#D05070);bottom:-60px;left:-60px;opacity:.15;animation-delay:-4s;"></div>
   <div class="inquiry-inner">
-    <span class="inq-label reveal">Work together</span>
-    <h2 class="inq-title reveal rd1">Tell us about<br><span class="irid">your space</span></h2>
-    <p class="inq-sub reveal rd2">Fill in the details below and Aliza will follow up with next steps.</p>
+    <span class="inq-label reveal">Let's host one together</span>
+    <h2 class="inq-title reveal rd1">Your space,<br><span class="irid">our flowers</span></h2>
+    <p class="inq-sub reveal rd2">If you have a space that can host a table of guests, I'd love to explore a recurring collaboration. I handle the planning, ticketing, marketing, facilitation, and cleanup — you provide the space and the vibe.</p>
+    <p class="inq-sub reveal rd3" style="margin-top:16px;font-size:16px;">Share a few details below and I'll reply with next steps.</p>
 
     <div class="reveal rd2">
       <div class="form-row">
@@ -269,15 +307,10 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
         <label class="form-label">Anything else</label>
         <textarea class="form-textarea" placeholder="Tell us about your space or anything you'd like Aliza to know..."></textarea>
       </div>
-      <button class="form-submit">Send inquiry →</button>
+      <button class="form-submit">Venue inquiry →</button>
+      <p style="margin-top:16px;font-family:'Cormorant',serif;font-style:italic;font-size:15px;color:rgba(61,31,78,.4);">Thanks — I'll be in touch soon with a few follow-up questions and proposed dates.</p>
     </div>
   </div>
-</div>
-
-<!-- OTHER ENQUIRIES NOTE -->
-<div class="other-note">
-  <p class="other-text"><strong>Something else in mind?</strong> Whether you're interested in attending a social, booking a private event, or just want to say hello — Aliza would love to hear from you.</p>
-  <a href="/cdn-cgi/l/email-protection#325a575e5e5d72545e5d4557405c5d44531c414647565b5d" class="btn-other">Get in touch →</a>
 </div>
 
 <!-- FOOTER -->
@@ -288,26 +321,21 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
     <nav class="footer-nav">
       <a href="./index.html">Home</a>
       <a href="./flowernova-socials.html">Socials</a>
-      <a href="./flowernova-community.html">Community Project</a>
-      <a href="./index.html#services">Floral Services</a>
-      <a href="flowernova-website.html#about">About</a>
+      <a href="./flowernova-community.html">Community</a>
+      <a href="./index.html#gallery">Work</a>
+      <a href="#inquiry">Inquire</a>
     </nav>
   </div>
   <div class="footer-copy">© 2025 FlowerNova Studio · Aliza Markovitch · Toronto</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
-(function animRing(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); })();
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; ring.style.width='56px'; ring.style.height='56px'; });
-  el.addEventListener('mouseleave',()=>{ cursor.style.width='8px';  cursor.style.height='8px';  ring.style.width='36px'; ring.style.height='36px'; });
-});
+<script>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 const reveals = document.querySelectorAll('.reveal');
 setTimeout(() => reveals.forEach(el => { if(el.getBoundingClientRect().top > window.innerHeight) el.classList.add('hidden'); }), 100);
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.remove('hidden'); e.target.classList.add('visible'); }}), { threshold:.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

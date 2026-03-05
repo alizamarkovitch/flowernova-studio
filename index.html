@@ -28,31 +28,11 @@ body {
   font-family: 'Cormorant', serif;
   color: var(--plum);
   overflow-x: hidden;
-  cursor: none;
+  
 }
 
-/* ── CUSTOM CURSOR ── */
-.cursor {
-  width: 8px; height: 8px;
-  background: var(--mauve);
-  border-radius: 50%;
-  position: fixed; top: 0; left: 0;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
-  mix-blend-mode: multiply;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid var(--mauve);
-  border-radius: 50%;
-  position: fixed; top: 0; left: 0;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-  opacity: 0.5;
-}
-body:hover .cursor { opacity: 1; }
+
+
 
 /* ── IRIDESCENT TEXT ── */
 .irid-text {
@@ -191,7 +171,7 @@ nav.scrolled .nav-cta:hover {
 .hero-photo {
   position: absolute;
   inset: 0;
-  background: url('hero-flower.jpeg') center center/cover no-repeat;
+  background: url('https://i.imgur.com/CPG50Yy.jpeg') center center/cover no-repeat;
   transform: scale(1.06);
   animation: heroZoom 12s ease forwards;
 }
@@ -229,6 +209,7 @@ nav.scrolled .nav-cta:hover {
 
 .hero-content {
   position: relative; z-index: 2;
+  overflow: visible;
   animation: fadeUp 1.2s ease 0.3s forwards;
   opacity: 0;
   padding-bottom: 12px;
@@ -252,8 +233,10 @@ nav.scrolled .nav-cta:hover {
   font-size: clamp(56px, 10vw, 140px);
   line-height: 0.92;
   letter-spacing: -0.02em;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
   white-space: nowrap;
+  overflow: visible;
+  padding: 0 10px;
   background: linear-gradient(90deg, #E8B8D8 0%, #C0A0F0 25%, #90D0F0 50%, #80E8C0 70%, #F0E080 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -331,32 +314,7 @@ nav.scrolled .nav-cta:hover {
   animation: float 2s ease-in-out infinite;
 }
 
-/* ── MARQUEE ── */
-.marquee-section {
-  background: var(--plum);
-  padding: 20px 0;
-  overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.marquee-track {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee 20s linear infinite;
-}
-.marquee-item {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(255,255,255,0.25);
-  padding: 0 40px;
-  letter-spacing: 0.05em;
-}
-.marquee-dot {
-  color: var(--mauve);
-  font-size: 8px;
-  vertical-align: middle;
-}
+
 
 /* ── SECTION SHARED ── */
 .section-label {
@@ -522,7 +480,7 @@ nav.scrolled .nav-cta:hover {
   position: relative;
   overflow: hidden;
   transition: background 0.4s ease, transform 0.4s ease;
-  cursor: none;
+  
 }
 .service-card::before {
   content: '';
@@ -622,7 +580,7 @@ nav.scrolled .nav-cta:hover {
   position: relative;
   overflow: hidden;
   background: var(--plum);
-  cursor: none;
+  
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 .gallery-item:hover .gallery-img-bg { transform: scale(1.06); }
@@ -686,17 +644,9 @@ nav.scrolled .nav-cta:hover {
 }
 
 /* ── MARQUEE 2 (light) ── */
-.marquee-light {
-  background: #F7F3EF;
-  padding: 28px 0;
-  overflow: hidden;
-  margin-top: 80px;
-  border-top: 1px solid rgba(61,31,78,0.08);
-}
-.marquee-light .marquee-item {
-  color: rgba(61,31,78,0.2);
-}
-.marquee-light .marquee-dot { color: var(--lavender); }
+
+
+
 
 /* ── CONTACT ── */
 #contact {
@@ -807,7 +757,7 @@ nav.scrolled .nav-cta:hover {
   letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--plum);
-  cursor: none;
+  
   margin-top: 8px;
   transition: opacity 0.3s ease, transform 0.3s ease;
   position: relative;
@@ -925,20 +875,17 @@ footer {
 <body>
 
 <!-- Custom cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo irid-text">FlowerNova</a>
+  <a href="./index.html" class="nav-logo irid-text">FlowerNova</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#gallery">Work</a></li>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./flowernova-socials.html">Socials</a></li>
     <li><a href="./flowernova-community.html">Community</a></li>
-    <li><a href="./flowernova-socials.html">FlowerNova Social</a></li>
+    <li><a href="./index.html#gallery">Work</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get in touch</a>
+  <a href="./index.html#contact" class="nav-cta">Inquire</a>
 </nav>
 
 <!-- ── HERO ── -->
@@ -991,24 +938,6 @@ footer {
   </div>
 </section>
 
-<!-- ── MARQUEE ── -->
-<div class="marquee-section">
-  <div class="marquee-track">
-    <span class="marquee-item">Floral Design Workshops <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Retail Arrangements <span class="marquare-dot">◆</span></span>
-    <span class="marquee-item">The Community Project <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">FlowerNova Social <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Based in Toronto <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Connection & Play <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Floral Design Workshops <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Retail Arrangements <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">The Community Project <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">FlowerNova Social <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Based in Toronto <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Connection & Play <span class="marquee-dot">◆</span></span>
-  </div>
-</div>
-
 <!-- ── ABOUT ── -->
 <section id="about">
   <div class="about-inner">
@@ -1045,41 +974,42 @@ footer {
   </div>
 </section>
 
-<!-- ── SERVICES ── -->
+<!-- ── OFFER PICKER ── -->
 <section id="services">
   <div class="blob" style="width:400px;height:400px;background:radial-gradient(#8050C0,#4030A0);top:-80px;right:-80px;opacity:.2;"></div>
   <div class="services-inner">
     <div class="services-header reveal">
       <div>
-        <span class="section-label">What we offer</span>
-        <h2 class="section-title">Our <em>Services</em></h2>
+        <span class="section-label">What I'm building right now</span>
+        <h2 class="section-title">Three ways to work with <em>FlowerNova</em></h2>
       </div>
-      <p class="services-desc">Every offering is crafted to your vision, your moment, your story.</p>
+      <p class="services-desc">Pick the path that fits.</p>
     </div>
 
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-num">01</div>
         <div class="service-icon irid-text">❧</div>
-        <div class="service-name">Floral Design Workshops</div>
-        <p class="service-desc">Rediscover your love for play through a guided floral arrangement workshop. Be present, explore your creativity, and ground your energy in the mindful practice of working with flowers.</p>
-        <a href="#contact" class="service-link">Enquire <span>→</span></a>
+        <div class="service-name">FlowerNova Socials</div>
+        <p class="service-desc">Seasonal (and soon recurring) floral arranging socials hosted in beautiful community spaces — plus venue collaborations.</p>
+        <a href="./flowernova-socials.html" class="service-link">Socials + venue partners <span>→</span></a>
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">02</div>
         <div class="service-icon irid-text">✦</div>
-        <div class="service-name">Retail Arrangements</div>
-        <p class="service-desc">Bring fresh energy to your space with unique floral arrangements that elevate your store's ambiance. Each week, hand-delivered and maintained seasonal designs, ensuring your retail environment always feels vibrant and beautifully cared for.</p>
-        <a href="#contact" class="service-link">Enquire <span>→</span></a>
+        <div class="service-name">The Community Project (YouTube)</div>
+        <p class="service-desc">I meet people in the city, make them flowers, and share their story — one episode at a time.</p>
+        <a href="./flowernova-community.html" class="service-link">Be featured / Nominate <span>→</span></a>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">03</div>
         <div class="service-icon irid-text">◈</div>
-        <div class="service-name">The Community Project</div>
-        <p class="service-desc">Flowers that bring people together. A seasonal series of community-rooted floral experiences — from social events to collaborative arrangements designed to foster connection and play.</p>
-        <a href="./flowernova-community.html" class="service-link">Learn more <span>→</span></a>
+        <div class="service-name">Custom Floral Work</div>
+        <p class="service-desc">Marketing activations, weekly florals, gifting, and special celebrations — designed with taste, care, and a little magic.</p>
+        <a href="#contact" class="service-link">Inquire about custom work <span>→</span></a>
       </div>
     </div>
+    <p class="reveal" style="text-align:center;margin-top:36px;font-family:'Cormorant',serif;font-style:italic;font-size:17px;color:rgba(61,31,78,.55);">Not sure what you need? <a href="#contact" style="color:var(--mauve);text-decoration:none;border-bottom:1px solid var(--lavender);">Book a consult</a> and I'll point you to the right fit.</p>
   </div>
 </section>
 
@@ -1137,22 +1067,7 @@ footer {
     </div>
   </div>
 
-  <div class="marquee-light">
-    <div class="marquee-track" style="animation-duration:25s;animation-direction:reverse;">
-      <span class="marquee-item">Toronto <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Weddings <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Seasonal Blooms <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Handcrafted <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">With Intention <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">In Full Bloom <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Toronto <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Weddings <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Seasonal Blooms <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">Handcrafted <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">With Intention <span class="marquee-dot">◆</span></span>
-      <span class="marquee-item">In Full Bloom <span class="marquee-dot">◆</span></span>
-    </div>
-  </div>
+  
 </section>
 
 <!-- ── CONTACT ── -->
@@ -1239,10 +1154,11 @@ footer {
     <div>
       <div class="footer-col-title">Navigate</div>
       <ul class="footer-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#gallery">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./flowernova-socials.html">Socials</a></li>
+        <li><a href="./flowernova-community.html">Community</a></li>
+        <li><a href="./index.html#gallery">Work</a></li>
+        <li><a href="#contact">Inquire</a></li>
       </ul>
     </div>
     <div>
@@ -1275,42 +1191,7 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── CURSOR ──
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button, .service-card, .gallery-item').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '16px';
-      cursor.style.height = '16px';
-      ring.style.width = '56px';
-      ring.style.height = '56px';
-      ring.style.opacity = '0.8';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '8px';
-      cursor.style.height = '8px';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.opacity = '0.5';
-    });
-  });
+  
 
   // ── NAV SCROLL ──
   const nav = document.getElementById('nav');

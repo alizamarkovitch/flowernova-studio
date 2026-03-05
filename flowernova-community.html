@@ -9,9 +9,9 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 :root { --plum:#3D1F4E; --plum-deep:#260D36; --mauve:#7B4F8A; --lavender:#C8A8D8; --cream:#FAF6F0; --off-white:#F2EDE8; }
-body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; cursor:none; }
-.cursor      { width:8px;height:8px;background:var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s; }
-.cursor-ring { width:36px;height:36px;border:1px solid var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s; }
+body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; }
+
+
 .irid { background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 @keyframes fadeUp  { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
 @keyframes drift   { from{transform:translate(0,0)scale(1)} to{transform:translate(28px,-18px)scale(1.07)} }
@@ -40,11 +40,11 @@ nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
 
 /* HERO */
 #hero { min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:9vh; }
-.hero-photo { position:absolute;inset:0;background:url('hero-flower.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
+.hero-photo { position:absolute;inset:0;background:url('https://i.imgur.com/CPG50Yy.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
 .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(38,13,54,.28) 0%,rgba(38,13,54,.15) 35%,rgba(38,13,54,.72) 70%,rgba(38,13,54,.95) 100%); }
 .hero-content { position:relative;z-index:2;animation:fadeUp 1.2s ease .3s forwards;opacity:0; }
 .hero-label { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;display:block; }
-.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(40px,7vw,100px);line-height:.92;letter-spacing:-.02em;margin-bottom:10px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(40px,7vw,100px);line-height:.92;letter-spacing:-.02em;margin-bottom:20px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 .hero-sub { font-family:'Cormorant',serif;font-weight:300;font-style:italic;font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.6);max-width:560px;margin:0 auto 40px;line-height:1.65; }
 .hero-btns { display:flex;align-items:center;gap:18px;justify-content:center;flex-wrap:wrap; }
 .btn-irid { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 38px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s; }
@@ -93,7 +93,7 @@ nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
 .form-input::placeholder,.form-textarea::placeholder { color:rgba(255,255,255,.18); }
 .form-input:focus,.form-textarea:focus { border-color:rgba(200,168,216,.5); }
 .form-textarea { min-height:88px;resize:vertical; }
-.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:16px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);cursor:none;margin-top:6px;transition:opacity .3s,transform .3s; }
+.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:16px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);margin-top:6px;transition:opacity .3s,transform .3s; }
 .form-submit:hover { opacity:.88;transform:translateY(-2px); }
 
 /* SECTION B — nominate */
@@ -138,18 +138,16 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <nav id="nav">
   <a href="./index.html" class="nav-logo irid">FlowerNova</a>
   <ul class="nav-links">
-    <li><a href="flowernova-website.html#about">About</a></li>
+    <li><a href="./index.html">Home</a></li>
     <li><a href="./flowernova-socials.html">Socials</a></li>
-    <li><a href="./flowernova-community.html">Community Project</a></li>
-    <li><a href="./index.html#services">Floral Services</a></li>
+    <li><a href="./flowernova-community.html">Community</a></li>
+    <li><a href="./index.html#gallery">Work</a></li>
   </ul>
-  <a href="#nominate" class="nav-cta">Nominate someone</a>
+  <a href="#nominate" class="nav-cta">Inquire</a>
 </nav>
 
 <!-- HERO -->
@@ -160,6 +158,7 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
     <span class="hero-label">FlowerNova</span>
     <h1 class="hero-title">The Community<br>Project</h1>
     <p class="hero-sub">I meet people in the city, make them flowers, and share their story — one episode at a time.</p>
+    <p style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:32px;">Toronto-based &nbsp;·&nbsp; Filming begins again in April</p>
     <div class="hero-btns">
       <a href="#invited" class="btn-irid">I was invited</a>
       <a href="#nominate" class="btn-ghost">Nominate someone →</a>
@@ -176,6 +175,7 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
   <div>
     <span class="sec-label reveal">If I reached out to you</span>
     <h2 class="sec-title reveal rd1">Here's what<br>it <em>looks like</em></h2>
+    <p class="sec-body reveal rd1" style="font-size:16px;font-style:normal;margin-bottom:24px;">If I invited you to participate, you're in the right place — here's exactly what it looks like and how to say yes.</p>
     <p class="sec-body reveal rd2">If you received a message from me, this page explains what participation involves and how to pick a filming date. It's low-pressure and entirely at your pace.</p>
 
     <div class="steps">
@@ -210,6 +210,7 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
         <li><span class="cdot"></span>We keep it natural and low-pressure throughout</li>
         <li><span class="cdot"></span>You can skip any question — no explanation needed</li>
         <li><span class="cdot"></span>You choose what to share — light or deeper, it's up to you</li>
+        <li><span class="cdot"></span>No pressure to share anything personal — it can be light, simple, and fun.</li>
       </ul>
     </div>
 
@@ -300,24 +301,15 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
     <nav class="footer-nav">
       <a href="./index.html">Home</a>
       <a href="./flowernova-socials.html">Socials</a>
-      <a href="./flowernova-community.html">Community Project</a>
-      <a href="./index.html#services">Floral Services</a>
-      <a href="flowernova-website.html#about">About</a>
+      <a href="./flowernova-community.html">Community</a>
+      <a href="./index.html#gallery">Work</a>
+      <a href="#nominate">Inquire</a>
     </nav>
   </div>
   <div class="footer-copy">© 2025 FlowerNova Studio · Aliza Markovitch · Toronto</div>
 </footer>
 
 <script>
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
-(function animRing(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); })();
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; ring.style.width='56px'; ring.style.height='56px'; });
-  el.addEventListener('mouseleave',()=>{ cursor.style.width='8px'; cursor.style.height='8px'; ring.style.width='36px'; ring.style.height='36px'; });
-});
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 const reveals = document.querySelectorAll('.reveal');
