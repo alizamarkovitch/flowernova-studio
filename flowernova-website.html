@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowerNova Studio — Floral Design & Events</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & ROOT ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --plum:      #3D1F4E;
+  --plum-deep: #3D1F4E;
+  --mauve:     #7B4F8A;
+  --lavender:  #C8A8D8;
+  --blush:     #F2C4CE;
+  --champagne: #E8D5B0;
+  --sage:      #9DB5A0;
+  --cream:     #FAF6F0;
+  --off-white: #F7F3EF;
+  --irid: linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#80E8D0,#F0E080,#F0A0C0);
+}
+
+body {
+  background: #F7F3EF;
+  font-family: 'Cormorant', serif;
+  color: var(--plum);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--mauve);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--mauve);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+}
+body:hover .cursor { opacity: 1; }
+
+/* ── IRIDESCENT TEXT ── */
+.irid-text {
+  background: var(--irid);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes drift    { from{transform:translate(0,0)scale(1)} to{transform:translate(30px,-20px)scale(1.08)} }
+@keyframes shimmer  { from{filter:hue-rotate(0deg)} to{filter:hue-rotate(50deg)} }
+@keyframes marquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.hidden {
+  opacity: 0;
+  transform: translateY(36px);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+.reveal-delay-3 { transition-delay: 0.34s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 60px;
+  transition: background 0.4s ease, padding 0.4s ease, backdrop-filter 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(250,246,240,0.92);
+  backdrop-filter: blur(12px);
+  padding: 16px 60px;
+  border-bottom: 1px solid rgba(61,31,78,0.08);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: color 0.4s ease;
+}
+nav.scrolled .nav-logo { color: var(--plum); }
+nav.scrolled .nav-logo.irid-text { -webkit-text-fill-color: transparent; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Cormorant', serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--irid);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+nav.scrolled .nav-links a { color: var(--mauve); }
+.nav-links a:hover { color: white; }
+nav.scrolled .nav-links a:hover { color: var(--plum); }
+
+.nav-cta {
+  font-family: 'Cormorant', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.nav-cta:hover {
+  background: white;
+  color: var(--plum);
+}
+nav.scrolled .nav-cta {
+  color: var(--plum);
+  border-color: var(--mauve);
+}
+nav.scrolled .nav-cta:hover {
+  background: var(--plum);
+  color: white;
+}
+
+/* ── BLOBS ── */
+.blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px);
+  animation: drift 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding-bottom: 8vh;
+}
+
+/* Full-bleed flower photo */
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  background: url('hero-flower.jpeg') center center/cover no-repeat;
+  transform: scale(1.06);
+  animation: heroZoom 12s ease forwards;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.0); }
+}
+
+/* Plum gradient overlay — dark at bottom so text pops, lighter at top so flowers show */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(38,13,54,0.25) 0%,
+    rgba(38,13,54,0.15) 35%,
+    rgba(38,13,54,0.65) 68%,
+    rgba(38,13,54,0.94) 100%
+  );
+}
+
+/* Subtle iridescent shimmer layer */
+.hero-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(240,192,224,0.06) 0%,
+    rgba(192,160,240,0.04) 33%,
+    rgba(160,200,248,0.05) 66%,
+    rgba(240,224,128,0.04) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  animation: fadeUp 1.2s ease 0.3s forwards;
+  opacity: 0;
+  padding-bottom: 12px;
+}
+
+/* "Welcome to" line — like reference */
+.hero-welcome {
+  font-family: 'Cormorant SC', serif;
+  font-size: 13px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+
+/* FlowerNova — large, bold, iridescent */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(56px, 10vw, 140px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #E8B8D8 0%, #C0A0F0 25%, #90D0F0 50%, #80E8C0 70%, #F0E080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Studio — noticeably smaller, lighter, elegant */
+.hero-title-sub {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 48px);
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+  line-height: 1;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Tagline below Studio */
+.hero-eyebrow {
+  font-family: 'Cormorant SC', serif;
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 44px;
+}
+
+.hero-cta-group {
+  display: flex; align-items: center; gap: 24px; justify-content: center;
+}
+
+.btn-primary {
+  font-family: 'Cormorant', serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--plum);
+  background: linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);
+  padding: 16px 40px;
+  text-decoration: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-ghost {
+  font-family: 'Cormorant', serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  padding-bottom: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.btn-ghost:hover { color: white; border-color: white; }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeIn 2s ease 1.5s forwards; opacity: 0;
+}
+.hero-scroll span {
+  font-family: 'Cormorant', serif;
+  font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* ── MARQUEE ── */
+.marquee-section {
+  background: var(--plum);
+  padding: 20px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+.marquee-item {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255,255,255,0.25);
+  padding: 0 40px;
+  letter-spacing: 0.05em;
+}
+.marquee-dot {
+  color: var(--mauve);
+  font-size: 8px;
+  vertical-align: middle;
+}
+
+/* ── SECTION SHARED ── */
+.section-label {
+  font-family: 'Cormorant', serif;
+  font-size: 10px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  display: block;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.section-title em {
+  font-style: normal;
+  color: var(--mauve);
+}
+
+/* ── ABOUT ── */
+#about {
+  padding: 140px 0;
+  background: #F7F3EF;
+  overflow: hidden;
+}
+.about-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+  height: 600px;
+}
+.about-card-main {
+  position: absolute;
+  top: 0; left: 0; right: 60px; bottom: 60px;
+  background: var(--plum);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-card-accent {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 240px; height: 240px;
+  background: linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-big-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 220px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  opacity: 0.12;
+  color: white;
+  user-select: none;
+}
+.about-accent-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 48px;
+  color: var(--plum);
+  line-height: 1;
+  text-align: center;
+}
+.about-blob-1 { width:300px;height:300px;background:radial-gradient(#C090E0,#8060D0);top:-80px;right:20px;opacity:.25;animation-delay:-2s; }
+.about-text .section-title { color: var(--plum); }
+.about-body {
+  font-size: 19px;
+  line-height: 1.75;
+  color: var(--mauve);
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 32px;
+}
+.about-body-2 {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(61,31,78,0.6);
+  font-weight: 300;
+  margin-bottom: 44px;
+}
+.about-stats {
+  display: flex; gap: 48px;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-family: 'Cormorant', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin-top: 4px;
+}
+
+/* ── SERVICES ── */
+#services {
+  padding: 140px 0;
+  background: #3D1F4E;
+  position: relative;
+  overflow: hidden;
+}
+.services-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 80px;
+  position: relative;
+}
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 80px;
+}
+.services-header .section-label { color: rgba(255,255,255,0.35); }
+.services-header .section-title { color: white; margin-bottom: 0; }
+.services-header em { color: rgba(200,168,216,1); }
+.services-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 300;
+  font-style: italic;
+  max-width: 280px;
+  text-align: right;
+  line-height: 1.7;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.service-card {
+  background: rgba(255,255,255,0.04);
+  padding: 52px 44px;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s ease, transform 0.4s ease;
+  cursor: none;
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--irid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+
+.service-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 32px;
+}
+.service-icon {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 24px;
+  animation: shimmer 6s ease-in-out infinite alternate;
+}
+.service-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.service-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+}
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cormorant', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--lavender);
+  text-decoration: none;
+  margin-top: 32px;
+  transition: gap 0.3s ease;
+}
+.service-link:hover { gap: 16px; }
+
+/* ── GALLERY ── */
+#gallery {
+  padding: 140px 0 0;
+  background: #F7F3EF;
+  overflow: hidden;
+}
+.gallery-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+.gallery-all {
+  font-family: 'Cormorant', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  text-decoration: none;
+  border-bottom: 1px solid var(--lavender);
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+.gallery-all:hover { color: var(--plum); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 300px 300px;
+  gap: 12px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--plum);
+  cursor: none;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-item:hover .gallery-img-bg { transform: scale(1.06); }
+
+.g1 { grid-column: span 5; grid-row: span 2; }
+.g2 { grid-column: span 4; }
+.g3 { grid-column: span 3; }
+.g4 { grid-column: span 3; }
+.g5 { grid-column: span 4; }
+
+.gallery-img-bg {
+  position: absolute; inset: 0;
+  transition: transform 0.7s ease;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+/* Placeholder flower art for gallery items */
+.flower-art {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(61,31,78,0.9), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
+.overlay-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 4px;
+}
+.overlay-tag {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Gallery placeholder visuals using CSS art */
+.gal-bg-1 { background: linear-gradient(160deg, #3D1F4E 0%, #6B3A7D 50%, #C8A8D8 100%); }
+.gal-bg-2 { background: linear-gradient(135deg, #2A1240 0%, #7B4F8A 60%, #F2C4CE 100%); }
+.gal-bg-3 { background: linear-gradient(120deg, #1A0A2E 0%, #5B3070 70%, #E8D5B0 100%); }
+.gal-bg-4 { background: linear-gradient(150deg, #4A2560 0%, #9DB5A0 100%); }
+.gal-bg-5 { background: linear-gradient(140deg, #3D1F4E 0%, #C0A0F0 80%, #F0E080 100%); }
+
+.gal-petal {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+}
+
+/* ── MARQUEE 2 (light) ── */
+.marquee-light {
+  background: #F7F3EF;
+  padding: 28px 0;
+  overflow: hidden;
+  margin-top: 80px;
+  border-top: 1px solid rgba(61,31,78,0.08);
+}
+.marquee-light .marquee-item {
+  color: rgba(61,31,78,0.2);
+}
+.marquee-light .marquee-dot { color: var(--lavender); }
+
+/* ── CONTACT ── */
+#contact {
+  padding: 140px 0;
+  background: #F7F3EF;
+  position: relative;
+  overflow: hidden;
+}
+.contact-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+.contact-left {}
+.contact-left .section-title { margin-bottom: 20px; }
+.contact-body {
+  font-size: 18px;
+  color: var(--mauve);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 52px;
+}
+.contact-details { display: flex; flex-direction: column; gap: 20px; }
+.contact-item {
+  display: flex; gap: 20px; align-items: baseline;
+}
+.contact-item-label {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--lavender);
+  width: 80px; flex-shrink: 0;
+}
+.contact-item-val {
+  font-size: 16px;
+  color: var(--plum);
+  font-weight: 300;
+}
+
+/* Contact form */
+.contact-form {
+  background: var(--plum);
+  padding: 56px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-form-blob { width:300px;height:300px;background:radial-gradient(#C090E0,#6060D0);top:-80px;right:-80px;opacity:.25;animation-delay:-3s; }
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 28px;
+  color: white;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  position: relative;
+}
+.form-label {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  display: block;
+  margin-bottom: 8px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 14px 18px;
+  font-family: 'Cormorant', serif;
+  font-size: 16px;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(200,168,216,0.5);
+  background: rgba(255,255,255,0.09);
+}
+.form-select option { background: var(--plum); color: white; }
+.form-textarea { min-height: 100px; resize: vertical; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-submit {
+  width: 100%;
+  background: linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);
+  border: none;
+  padding: 18px;
+  font-family: 'Cormorant', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--plum);
+  cursor: none;
+  margin-top: 8px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+.form-submit:hover { opacity: 0.88; transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  background: #3D1F4E;
+  padding: 80px 80px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.footer-blob-1 { width:400px;height:400px;background:radial-gradient(#8050C0,#4030A0);top:-100px;left:-100px;opacity:.2; }
+.footer-blob-2 { width:300px;height:300px;background:radial-gradient(#D0A030,#D04060);bottom:-80px;right:-80px;opacity:.2; }
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  position: relative;
+}
+.footer-brand-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.footer-brand-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  max-width: 260px;
+}
+.footer-col-title {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a {
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover { color: white; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.footer-copy {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+}
+.footer-socials { display: flex; gap: 24px; }
+.footer-socials a {
+  font-family: 'Cormorant', serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-socials a:hover { color: white; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px) {
+  nav { padding: 20px 32px; }
+  nav.scrolled { padding: 14px 32px; }
+  .nav-links { gap: 24px; }
+  .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 60px; padding: 0 40px; }
+  .about-visual { height: 400px; }
+  .services-inner, .gallery-inner { padding: 0 40px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .g1,.g2,.g3,.g4,.g5 { grid-column: span 1; grid-row: span 1; height: 280px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  footer { padding: 60px 40px 32px; }
+  .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .services-desc { text-align: left; max-width: 100%; }
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width:768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hero-cta-group { flex-direction: column; }
+  .about-inner, .contact-inner { padding: 0 24px; }
+  .section { padding: 80px 24px; }
+  .gallery-inner { padding: 0 24px; }
+  .footer-top { grid-template-columns: 1fr; }
+  footer { padding: 48px 24px 28px; }
+  .contact-form { padding: 36px 28px; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo irid-text">FlowerNova</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Work</a></li>
+    <li><a href="https://flowernova.studio/community">Community</a></li>
+    <li><a href="https://flowernova.studio/flowernovasocial/autumn-edition">FlowerNova Social</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <!-- Full-bleed photo bg -->
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-shimmer"></div>
+
+  <div class="hero-content">
+    <!-- Flower mark -->
+    <div style="margin-bottom:20px;">
+      <svg width="32" height="32" viewBox="0 0 60 60" fill="none">
+        <defs><linearGradient id="hpg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E8B8D8"/><stop offset="33%" stop-color="#C0A0F0"/><stop offset="66%" stop-color="#A0D8F0"/><stop offset="100%" stop-color="#F0E080"/></linearGradient></defs>
+        <g transform="translate(30,30)">
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".9"  transform="rotate(0)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".85" transform="rotate(45)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".8"  transform="rotate(90)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".85" transform="rotate(135)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".9"  transform="rotate(180)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".85" transform="rotate(225)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".8"  transform="rotate(270)"/>
+          <ellipse cx="0" cy="-12" rx="5" ry="10" fill="url(#hpg)" opacity=".85" transform="rotate(315)"/>
+          <circle r="7" fill="url(#hpg)"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Welcome line like reference -->
+    <div class="hero-welcome">Welcome to</div>
+
+    <!-- Big FlowerNova — iridescent, full width feel -->
+    <h1 class="hero-title">FlowerNova</h1>
+
+    <!-- Studio — noticeably smaller, lighter weight -->
+    <div class="hero-title-sub">Studio</div>
+
+    <!-- Tagline in small caps -->
+    <div class="hero-eyebrow">Floral Design &nbsp;·&nbsp; Arrangements &nbsp;·&nbsp; Events</div>
+
+    <div class="hero-cta-group">
+      <a href="#services" class="btn-primary">Explore our work</a>
+      <a href="#contact" class="btn-ghost">Get in touch →</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Floral Design Workshops <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Retail Arrangements <span class="marquare-dot">◆</span></span>
+    <span class="marquee-item">The Community Project <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">FlowerNova Social <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Based in Toronto <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Connection & Play <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Floral Design Workshops <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Retail Arrangements <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">The Community Project <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">FlowerNova Social <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Based in Toronto <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Connection & Play <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="blob about-blob-1"></div>
+      <div class="about-card-main" style="background:none; overflow:hidden;">
+        <img src="https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/11369e29-3481-4915-9c23-55d7f165f2ef/profile_image2.webp" alt="Aliza Markovitch" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="about-card-accent">
+        <div class="about-accent-text irid-text">In<br>Full<br>Bloom</div>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <span class="section-label reveal">About Aliza</span>
+      <h2 class="section-title reveal reveal-delay-1">The florist<br>behind <em>FlowerNova</em></h2>
+      <p class="about-body reveal reveal-delay-2">"Guided by Alan Watts' view of work as play, I let each creation unfold naturally, staying present with the process so beauty can bloom in its own time."</p>
+      <p class="about-body-2 reveal reveal-delay-3">I'm Aliza Markovitch, the florist and creative mind behind FlowerNova. My love of flowers began on a farm, where I was reintroduced to them as something alive from the ground, rooted, seasonal, and full of quiet magic. After a decade in digital design, I bring a trained eye for colour, composition, and storytelling to every arrangement.</p>
+      <div class="about-stats reveal reveal-delay-4">
+        <div>
+          <div class="stat-num irid-text">10+</div>
+          <div class="stat-label">Years in design</div>
+        </div>
+        <div>
+          <div class="stat-num irid-text">★★★★★</div>
+          <div class="stat-label">Client love</div>
+        </div>
+        <div>
+          <div class="stat-num irid-text">YYZ</div>
+          <div class="stat-label">Toronto based</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="blob" style="width:400px;height:400px;background:radial-gradient(#8050C0,#4030A0);top:-80px;right:-80px;opacity:.2;"></div>
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <div>
+        <span class="section-label">What we offer</span>
+        <h2 class="section-title">Our <em>Services</em></h2>
+      </div>
+      <p class="services-desc">Every offering is crafted to your vision, your moment, your story.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon irid-text">❧</div>
+        <div class="service-name">Floral Design Workshops</div>
+        <p class="service-desc">Rediscover your love for play through a guided floral arrangement workshop. Be present, explore your creativity, and ground your energy in the mindful practice of working with flowers.</p>
+        <a href="#contact" class="service-link">Enquire <span>→</span></a>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <div class="service-icon irid-text">✦</div>
+        <div class="service-name">Retail Arrangements</div>
+        <p class="service-desc">Bring fresh energy to your space with unique floral arrangements that elevate your store's ambiance. Each week, hand-delivered and maintained seasonal designs, ensuring your retail environment always feels vibrant and beautifully cared for.</p>
+        <a href="#contact" class="service-link">Enquire <span>→</span></a>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <div class="service-icon irid-text">◈</div>
+        <div class="service-name">The Community Project</div>
+        <p class="service-desc">Flowers that bring people together. A seasonal series of community-rooted floral experiences — from social events to collaborative arrangements designed to foster connection and play.</p>
+        <a href="https://flowernova.studio/community" class="service-link">Learn more <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header reveal">
+      <div>
+        <span class="section-label">Portfolio</span>
+        <h2 class="section-title">Our <em>Work</em></h2>
+      </div>
+      <a href="#contact" class="gallery-all">View all projects →</a>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item g1 reveal">
+        <div class="gallery-img-bg" style="background:url('https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/8c93b5c2-cac4-49de-a0fe-e4e9fcb62036/Twilight_Meadow.jpg') center/cover no-repeat;"></div>
+        <div class="gallery-overlay">
+          <div class="overlay-title">Twilight Meadow</div>
+          <div class="overlay-tag">Arrangement · 2025</div>
+        </div>
+      </div>
+
+      <div class="gallery-item g2 reveal reveal-delay-1">
+        <div class="gallery-img-bg" style="background:url('https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/3098b203-ca21-4241-8307-4366e2606464/Edith.jpg') center/cover no-repeat;"></div>
+        <div class="gallery-overlay">
+          <div class="overlay-title">Edith</div>
+          <div class="overlay-tag">Arrangement · 2025</div>
+        </div>
+      </div>
+
+      <div class="gallery-item g3 reveal reveal-delay-2">
+        <div class="gallery-img-bg" style="background:url('https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/b2ba1232-a0fa-4317-8b52-87581b0ba03f/Spring_Decadence.jpg') center/cover no-repeat;"></div>
+        <div class="gallery-overlay">
+          <div class="overlay-title">Spring Decadence</div>
+          <div class="overlay-tag">Arrangement · 2025</div>
+        </div>
+      </div>
+
+      <div class="gallery-item g4 reveal reveal-delay-2">
+        <div class="gallery-img-bg" style="background:url('https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/5d9298c2-9fc1-44ef-b069-b60069321667/Wild_nymph.jpg') center/cover no-repeat;"></div>
+        <div class="gallery-overlay">
+          <div class="overlay-title">Wild Nymph</div>
+          <div class="overlay-tag">Arrangement · 2025</div>
+        </div>
+      </div>
+
+      <div class="gallery-item g5 reveal reveal-delay-3">
+        <div class="gallery-img-bg" style="background:url('https://images.squarespace-cdn.com/content/v1/689649d87b77dc1113918d51/2b025874-3e53-4f58-9531-9cf3efa1a06c/Velvet_Bloom.webp') center/cover no-repeat;"></div>
+        <div class="gallery-overlay">
+          <div class="overlay-title">Velvet Bloom</div>
+          <div class="overlay-tag">Arrangement · 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee-light">
+    <div class="marquee-track" style="animation-duration:25s;animation-direction:reverse;">
+      <span class="marquee-item">Toronto <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Weddings <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Seasonal Blooms <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Handcrafted <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">With Intention <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">In Full Bloom <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Toronto <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Weddings <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Seasonal Blooms <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Handcrafted <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">With Intention <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">In Full Bloom <span class="marquee-dot">◆</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <span class="section-label reveal">Get in touch</span>
+      <h2 class="section-title reveal reveal-delay-1">Let's create<br>something <em>beautiful</em></h2>
+      <p class="contact-body reveal reveal-delay-2">Every extraordinary arrangement begins with a conversation. Tell Aliza about your vision and she'll bring it to life.</p>
+      <div class="contact-details reveal reveal-delay-3">
+        <div class="contact-item">
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="99f1fcf5f5f6d9fff5f6eefcebf7f6eff8b7eaedecfdf0f6">[email&#160;protected]</a></span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <span class="contact-item-val">@alizaflowernova</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Location</span>
+          <span class="contact-item-val">Toronto, Ontario</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Community</span>
+          <span class="contact-item-val">flowernova.studio/community</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form">
+        <div class="blob contact-form-blob"></div>
+        <div class="form-title">Book a consultation</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First name</label>
+            <input type="text" class="form-input" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input type="text" class="form-input" placeholder="Your name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Type of event</label>
+          <select class="form-select">
+            <option value="" disabled selected>Select an option</option>
+            <option>Floral Design Workshop</option>
+            <option>Retail Arrangements</option>
+            <option>The Community Project</option>
+            <option>FlowerNova Social</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tell us about your vision</label>
+          <textarea class="form-textarea" placeholder="Describe your event, date, and any details you'd love to share..."></textarea>
+        </div>
+
+        <button class="form-submit">Send enquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="blob footer-blob-1"></div>
+  <div class="blob footer-blob-2"></div>
+
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name irid-text">FlowerNova<br>Studio</div>
+      <p class="footer-brand-desc">Contemporary floral design for connection and play. Based in Toronto, created by Aliza Markovitch.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Projects</div>
+      <ul class="footer-links">
+        <li><a href="https://flowernova.studio/community">Community Project</a></li>
+        <li><a href="https://flowernova.studio/flowernovasocial/autumn-edition">FlowerNova Social</a></li>
+        <li><a href="#services">Workshops</a></li>
+        <li><a href="#services">Retail Arrangements</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li><a href="https://www.instagram.com/alizaflowernova/">Instagram</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#9cf4f9f0f0f3dcfaf0f3ebf9eef2f3eafdb2efe8e9f8f5f3"><span class="__cf_email__" data-cfemail="5f373a3333301f393330283a2d3130293e712c2b2a3b3630">[email&#160;protected]</span></a></li>
+        <li><a href="https://flowernova.studio">flowernova.studio</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 FlowerNova Studio · Aliza Markovitch · Toronto, Canada</div>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/alizaflowernova/">Instagram</a>
+      <a href="https://flowernova.studio/community">Community</a>
+      <a href="/cdn-cgi/l/email-protection#c6aea3aaaaa986a0aaa9b1a3b4a8a9b0a7e8b5b2b3a2afa9">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button, .service-card, .gallery-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '16px';
+      cursor.style.height = '16px';
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '8px';
+      cursor.style.height = '8px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // ── SCROLL REVEAL ──
+  const reveals = docum
