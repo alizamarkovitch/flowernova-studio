@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowerNova Socials — Venue Collaborations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+:root {
+  --plum:      #3D1F4E;
+  --plum-deep: #260D36;
+  --mauve:     #7B4F8A;
+  --lavender:  #C8A8D8;
+  --blush:     #F2C4CE;
+  --champagne: #E8D5B0;
+  --cream:     #FAF6F0;
+  --off-white: #F2EDE8;
+}
+
+body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; cursor:none; }
+
+.cursor      { width:8px;height:8px;background:var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s; }
+.cursor-ring { width:36px;height:36px;border:1px solid var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s; }
+
+.irid { background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+
+@keyframes fadeUp  { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes drift   { from{transform:translate(0,0)scale(1)} to{transform:translate(28px,-18px)scale(1.07)} }
+@keyframes heroZoom{ from{transform:scale(1.06)} to{transform:scale(1)} }
+@keyframes bounce  { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+.blob { position:absolute;border-radius:50%;filter:blur(85px);animation:drift 9s ease-in-out infinite alternate;pointer-events:none; }
+.reveal { opacity:1;transform:translateY(0);transition:opacity .85s ease,transform .85s ease; }
+.reveal.hidden { opacity:0;transform:translateY(28px); }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.rd1 { transition-delay:.12s; } .rd2 { transition-delay:.24s; } .rd3 { transition-delay:.36s; }
+
+/* ── NAV ── */
+nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;transition:background .4s,padding .4s; }
+nav.scrolled { background:rgba(250,246,240,.92);backdrop-filter:blur(12px);padding:16px 60px;border-bottom:1px solid rgba(61,31,78,.08); }
+.nav-logo { font-family:'Playfair Display',serif;font-weight:900;font-size:18px;color:white;text-decoration:none;transition:color .4s; }
+nav.scrolled .nav-logo { -webkit-text-fill-color:transparent; }
+.nav-links { display:flex;align-items:center;gap:36px;list-style:none; }
+.nav-links a { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);text-decoration:none;transition:color .3s;position:relative; }
+.nav-links a::after { content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:linear-gradient(90deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);transform:scaleX(0);transition:transform .3s;transform-origin:left; }
+.nav-links a:hover::after { transform:scaleX(1); }
+nav.scrolled .nav-links a { color:var(--mauve); }
+.nav-cta { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:white;border:1px solid rgba(255,255,255,.3);padding:10px 22px;text-decoration:none;transition:all .3s; }
+.nav-cta:hover { background:white;color:var(--plum); }
+nav.scrolled .nav-cta { color:var(--plum);border-color:var(--mauve); }
+nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
+
+/* ── HERO ── */
+#hero { min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:9vh; }
+.hero-photo { position:absolute;inset:0;background:url('hero-flower.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
+.hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(38,13,54,.28) 0%,rgba(38,13,54,.15) 35%,rgba(38,13,54,.72) 70%,rgba(38,13,54,.95) 100%); }
+.hero-content { position:relative;z-index:2;animation:fadeUp 1.2s ease .3s forwards;opacity:0; }
+.hero-label { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;display:block; }
+.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(52px,9vw,120px);line-height:.92;letter-spacing:-.02em;margin-bottom:10px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.hero-sub { font-family:'Cormorant',serif;font-weight:300;font-style:italic;font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 40px;line-height:1.65; }
+.hero-cta { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 44px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s; }
+.hero-cta:hover { opacity:.85;transform:translateY(-2px); }
+.hero-scroll { position:absolute;bottom:36px;left:50%;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1.4s ease 1.2s forwards;opacity:0; }
+.hero-scroll span { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.2); }
+.scroll-line { width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);animation:bounce 2s ease-in-out infinite; }
+
+/* ── WHAT IT IS — tight 2 col ── */
+.divider { height:1px;background:linear-gradient(to right,transparent,var(--lavender),transparent); }
+
+.pitch {
+  max-width:1300px;margin:0 auto;padding:100px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;
+}
+.pitch-label { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--mauve);display:block;margin-bottom:14px; }
+.pitch-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(36px,4vw,56px);line-height:.92;letter-spacing:-.02em;margin-bottom:28px; }
+.pitch-title em { font-style:normal;color:var(--mauve); }
+.pitch-body { font-size:19px;line-height:1.8;color:rgba(61,31,78,.75);font-weight:300;font-style:italic;margin-bottom:40px; }
+
+.pitch-bullets { list-style:none;display:flex;flex-direction:column;gap:0; }
+.pitch-bullets li { display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid rgba(61,31,78,.07);font-size:16px;color:var(--plum);font-weight:300; }
+.pitch-bullets li:last-child { border-bottom:none; }
+.pb-dot { width:5px;height:5px;border-radius:50%;background:linear-gradient(135deg,#C0A0F0,#A0C8F8);flex-shrink:0; }
+
+/* Right col — the two responsibility cards */
+.resp-stack { display:flex;flex-direction:column;gap:14px; }
+.resp-card { padding:36px 36px; border-radius:2px; }
+.resp-fn    { background:var(--plum); }
+.resp-venue { background:var(--off-white);border:1px solid rgba(61,31,78,.08); }
+.resp-title { font-family:'Playfair Display',serif;font-weight:700;font-style:italic;font-size:18px;margin-bottom:20px;letter-spacing:-.01em; }
+.resp-fn .resp-title    { color:white; }
+.resp-venue .resp-title { color:var(--plum); }
+.resp-list { list-style:none;display:flex;flex-direction:column;gap:11px; }
+.resp-list li { display:flex;align-items:baseline;gap:10px;font-size:15px;font-weight:300;line-height:1.5; }
+.resp-fn    .resp-list li { color:rgba(255,255,255,.5); }
+.resp-venue .resp-list li { color:rgba(61,31,78,.55); }
+.rm { font-family:'Cormorant SC',serif;font-size:9px;color:var(--lavender);flex-shrink:0; }
+.resp-venue .rm { color:var(--mauve); }
+
+/* ── INQUIRY FORM ── */
+.inquiry-wrap {
+  background:var(--plum-deep);position:relative;overflow:hidden;padding:100px 0;
+}
+.inquiry-inner { max-width:820px;margin:0 auto;padding:0 80px;position:relative; }
+.inq-label { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:14px; }
+.inq-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(36px,4vw,56px);line-height:.92;letter-spacing:-.02em;margin-bottom:12px;color:white; }
+.inq-sub { font-size:17px;color:rgba(255,255,255,.38);font-weight:300;font-style:italic;margin-bottom:48px;line-height:1.6; }
+
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+.form-group { margin-bottom:18px; }
+.form-label { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.28);display:block;margin-bottom:7px; }
+.form-input,.form-select,.form-textarea { width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:13px 16px;font-family:'Cormorant',serif;font-size:16px;color:white;outline:none;transition:border-color .3s,background .3s;border-radius:0;-webkit-appearance:none; }
+.form-input::placeholder,.form-textarea::placeholder { color:rgba(255,255,255,.18); }
+.form-input:focus,.form-select:focus,.form-textarea:focus { border-color:rgba(200,168,216,.5);background:rgba(255,255,255,.09); }
+.form-select option { background:var(--plum);color:white; }
+.form-textarea { min-height:100px;resize:vertical; }
+.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:17px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);cursor:none;margin-top:6px;transition:opacity .3s,transform .3s; }
+.form-submit:hover { opacity:.88;transform:translateY(-2px); }
+
+/* ── OTHER ENQUIRIES note ── */
+.other-note {
+  max-width:1300px;margin:0 auto;padding:56px 80px;
+  display:flex;align-items:center;justify-content:space-between;gap:40px;
+  border-top:1px solid rgba(61,31,78,.07);
+}
+.other-text { font-size:18px;color:rgba(61,31,78,.55);font-weight:300;font-style:italic;line-height:1.65;max-width:560px; }
+.other-text strong { font-style:normal;color:var(--mauve);font-weight:400; }
+.btn-other { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--mauve);border-bottom:1px solid var(--lavender);text-decoration:none;padding-bottom:2px;white-space:nowrap;transition:color .3s,border-color .3s;flex-shrink:0; }
+.btn-other:hover { color:var(--plum);border-color:var(--mauve); }
+
+/* ── FOOTER ── */
+footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;overflow:hidden; }
+.footer-inner { display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:28px;margin-bottom:24px; }
+.footer-brand { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:20px;letter-spacing:-.01em; }
+.footer-nav { display:flex;gap:28px; }
+.footer-nav a { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s; }
+.footer-nav a:hover { color:white; }
+.footer-copy { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.15); }
+
+@media(max-width:1024px){
+  nav{padding:20px 32px;} nav.scrolled{padding:14px 32px;}
+  .pitch{grid-template-columns:1fr;gap:56px;padding:80px 40px;}
+  .inquiry-inner{padding:0 40px;}
+  .other-note{flex-direction:column;align-items:flex-start;padding:48px 40px;}
+  footer{padding:44px 40px 28px;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-nav{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="./index.html" class="nav-logo irid">FlowerNova</a>
+  <ul class="nav-links">
+    <li><a href="flowernova-website.html#about">About</a></li>
+    <li><a href="./flowernova-socials.html">Socials</a></li>
+    <li><a href="./flowernova-community.html">Community Project</a></li>
+    <li><a href="./index.html#services">Floral Services</a></li>
+  </ul>
+  <a href="#inquiry" class="nav-cta">Venue inquiry</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">FlowerNova</span>
+    <h1 class="hero-title">Socials</h1>
+    <p class="hero-sub">A guided floral arranging experience designed for community, creativity, and connection — hosted in your space.</p>
+    <a href="#inquiry" class="hero-cta">Venue collaboration inquiry</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Learn more</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PITCH -->
+<section class="pitch">
+  <!-- Left: the sell -->
+  <div>
+    <span class="pitch-label reveal">For venues</span>
+    <h2 class="pitch-title reveal rd1">A thoughtful crowd,<br>brought to your <em>space</em></h2>
+    <p class="pitch-body reveal rd2">FlowerNova Socials are seasonal, ticketed floral workshops — 12 to 18 guests, 90 minutes, held in warm community spaces across Toronto. I'm looking for venues to host recurring collaborations that are easy to run and genuinely good for your space.</p>
+
+    <ul class="pitch-bullets">
+      <li class="reveal rd2"><span class="pb-dot"></span>New foot traffic and genuine community goodwill</li>
+      <li class="reveal rd3"><span class="pb-dot"></span>Beautiful shareable content for both of us</li>
+      <li class="reveal rd3"><span class="pb-dot"></span>Turnkey — Aliza handles everything</li>
+    </ul>
+  </div>
+
+  <!-- Right: responsibilities -->
+  <div class="resp-stack">
+    <div class="resp-card resp-fn reveal rd1">
+      <div class="resp-title">FlowerNova handles</div>
+      <ul class="resp-list">
+        <li><span class="rm">◆</span>Ticketing & marketing</li>
+        <li><span class="rm">◆</span>Guest communication</li>
+        <li><span class="rm">◆</span>Florals, vessels & tools</li>
+        <li><span class="rm">◆</span>Setup, facilitation & cleanup</li>
+      </ul>
+    </div>
+    <div class="resp-card resp-venue reveal rd2">
+      <div class="resp-title">Venue provides</div>
+      <ul class="resp-list">
+        <li><span class="rm">◆</span>Space + tables & chairs</li>
+        <li><span class="rm">◆</span>Timing & basic access details</li>
+        <li><span class="rm">◆</span>Option to sell drinks or coffee</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INQUIRY FORM -->
+<div class="inquiry-wrap" id="inquiry">
+  <div class="blob" style="width:400px;height:400px;background:radial-gradient(#9060D0,#5040B0);top:-100px;right:-80px;opacity:.18;"></div>
+  <div class="blob" style="width:280px;height:280px;background:radial-gradient(#E0B030,#D05070);bottom:-60px;left:-60px;opacity:.15;animation-delay:-4s;"></div>
+  <div class="inquiry-inner">
+    <span class="inq-label reveal">Work together</span>
+    <h2 class="inq-title reveal rd1">Tell us about<br><span class="irid">your space</span></h2>
+    <p class="inq-sub reveal rd2">Fill in the details below and Aliza will follow up with next steps.</p>
+
+    <div class="reveal rd2">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Venue name</label>
+          <input type="text" class="form-input" placeholder="The name of your space">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your name</label>
+          <input type="text" class="form-input" placeholder="Contact person">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="you@venue.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Neighbourhood</label>
+          <input type="text" class="form-input" placeholder="e.g. Kensington, Leslieville">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Capacity</label>
+          <input type="text" class="form-input" placeholder="e.g. 20–30 people">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ideal timing</label>
+          <input type="text" class="form-input" placeholder="e.g. weekday evenings, Sundays">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anything else</label>
+        <textarea class="form-textarea" placeholder="Tell us about your space or anything you'd like Aliza to know..."></textarea>
+      </div>
+      <button class="form-submit">Send inquiry →</button>
+    </div>
+  </div>
+</div>
+
+<!-- OTHER ENQUIRIES NOTE -->
+<div class="other-note">
+  <p class="other-text"><strong>Something else in mind?</strong> Whether you're interested in attending a social, booking a private event, or just want to say hello — Aliza would love to hear from you.</p>
+  <a href="/cdn-cgi/l/email-protection#325a575e5e5d72545e5d4557405c5d44531c414647565b5d" class="btn-other">Get in touch →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="blob" style="width:320px;height:320px;background:radial-gradient(#7050B0,#3020A0);top:-70px;left:-70px;opacity:.16;"></div>
+  <div class="footer-inner">
+    <div class="footer-brand irid">FlowerNova Studio</div>
+    <nav class="footer-nav">
+      <a href="./index.html">Home</a>
+      <a href="./flowernova-socials.html">Socials</a>
+      <a href="./flowernova-community.html">Community Project</a>
+      <a href="./index.html#services">Floral Services</a>
+      <a href="flowernova-website.html#about">About</a>
+    </nav>
+  </div>
+  <div class="footer-copy">© 2025 FlowerNova Studio · Aliza Markovitch · Toronto</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+(function animRing(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; ring.style.width='56px'; ring.style.height='56px'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.width='8px';  cursor.style.height='8px';  ring.style.width='36px'; ring.style.height='36px'; });
+});
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+setTimeout(() => reveals.forEach(el => { if(el.getBoundingClientRect().top > window.innerHeight) el.classList.add('hidden'); }), 100);
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.

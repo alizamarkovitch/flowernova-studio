@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Community Project — FlowerNova</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --plum:#3D1F4E; --plum-deep:#260D36; --mauve:#7B4F8A; --lavender:#C8A8D8; --cream:#FAF6F0; --off-white:#F2EDE8; }
+body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum); overflow-x:hidden; cursor:none; }
+.cursor      { width:8px;height:8px;background:var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s; }
+.cursor-ring { width:36px;height:36px;border:1px solid var(--mauve);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s; }
+.irid { background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+@keyframes fadeUp  { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes drift   { from{transform:translate(0,0)scale(1)} to{transform:translate(28px,-18px)scale(1.07)} }
+@keyframes heroZoom{ from{transform:scale(1.06)} to{transform:scale(1)} }
+@keyframes bounce  { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+.blob { position:absolute;border-radius:50%;filter:blur(85px);animation:drift 9s ease-in-out infinite alternate;pointer-events:none; }
+.reveal { opacity:1;transform:translateY(0);transition:opacity .85s ease,transform .85s ease; }
+.reveal.hidden { opacity:0;transform:translateY(28px); }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.rd1{transition-delay:.12s;} .rd2{transition-delay:.24s;} .rd3{transition-delay:.36s;}
+
+/* NAV */
+nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;transition:background .4s,padding .4s; }
+nav.scrolled { background:rgba(250,246,240,.92);backdrop-filter:blur(12px);padding:16px 60px;border-bottom:1px solid rgba(61,31,78,.08); }
+.nav-logo { font-family:'Playfair Display',serif;font-weight:900;font-size:18px;color:white;text-decoration:none; }
+nav.scrolled .nav-logo { -webkit-text-fill-color:transparent; }
+.nav-links { display:flex;align-items:center;gap:36px;list-style:none; }
+.nav-links a { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);text-decoration:none;transition:color .3s;position:relative; }
+.nav-links a::after { content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:linear-gradient(90deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);transform:scaleX(0);transition:transform .3s;transform-origin:left; }
+.nav-links a:hover::after { transform:scaleX(1); }
+nav.scrolled .nav-links a { color:var(--mauve); }
+.nav-cta { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:white;border:1px solid rgba(255,255,255,.3);padding:10px 22px;text-decoration:none;transition:all .3s; }
+.nav-cta:hover { background:white;color:var(--plum); }
+nav.scrolled .nav-cta { color:var(--plum);border-color:var(--mauve); }
+nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
+
+/* HERO */
+#hero { min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:9vh; }
+.hero-photo { position:absolute;inset:0;background:url('hero-flower.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
+.hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(38,13,54,.28) 0%,rgba(38,13,54,.15) 35%,rgba(38,13,54,.72) 70%,rgba(38,13,54,.95) 100%); }
+.hero-content { position:relative;z-index:2;animation:fadeUp 1.2s ease .3s forwards;opacity:0; }
+.hero-label { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;display:block; }
+.hero-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(40px,7vw,100px);line-height:.92;letter-spacing:-.02em;margin-bottom:10px;background:linear-gradient(90deg,#E8B8D8,#C0A0F0,#90D0F0,#80E8C0,#F0E080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.hero-sub { font-family:'Cormorant',serif;font-weight:300;font-style:italic;font-size:clamp(16px,2vw,22px);color:rgba(255,255,255,.6);max-width:560px;margin:0 auto 40px;line-height:1.65; }
+.hero-btns { display:flex;align-items:center;gap:18px;justify-content:center;flex-wrap:wrap; }
+.btn-irid { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 38px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s; }
+.btn-irid:hover { opacity:.85;transform:translateY(-2px); }
+.btn-ghost { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.25);text-decoration:none;padding-bottom:2px;transition:color .3s,border-color .3s; }
+.btn-ghost:hover { color:white;border-color:white; }
+.hero-scroll { position:absolute;bottom:36px;left:50%;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1.4s ease 1.2s forwards;opacity:0; }
+.hero-scroll span { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.2); }
+.scroll-line { width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);animation:bounce 2s ease-in-out infinite; }
+
+.divider { height:1px;background:linear-gradient(to right,transparent,var(--lavender),transparent); }
+
+/* SECTION A — if I reached out */
+.section-a {
+  max-width:1300px;margin:0 auto;padding:100px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;
+}
+.sec-label { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--mauve);display:block;margin-bottom:14px; }
+.sec-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(32px,3.5vw,50px);line-height:.93;letter-spacing:-.02em;margin-bottom:24px; }
+.sec-title em { font-style:normal;color:var(--mauve); }
+.sec-body { font-size:19px;line-height:1.8;color:rgba(61,31,78,.7);font-weight:300;font-style:italic;margin-bottom:36px; }
+
+/* Steps */
+.steps { display:flex;flex-direction:column; }
+.step { display:grid;grid-template-columns:44px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid rgba(61,31,78,.07); }
+.step:last-child { border-bottom:none; }
+.step-num { font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:30px;line-height:1;color:var(--lavender); }
+.step-title { font-family:'Playfair Display',serif;font-weight:700;font-size:17px;margin-bottom:4px;letter-spacing:-.01em; }
+.step-desc { font-size:15px;color:rgba(61,31,78,.5);font-weight:300;line-height:1.6; }
+
+/* Right col */
+.comfort-card { background:var(--off-white);border:1px solid rgba(61,31,78,.07);padding:32px;margin-bottom:20px; }
+.comfort-title { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--mauve);margin-bottom:16px;display:block; }
+.comfort-list { list-style:none;display:flex;flex-direction:column;gap:12px; }
+.comfort-list li { display:flex;align-items:baseline;gap:12px;font-size:15px;color:rgba(61,31,78,.6);font-weight:300;line-height:1.5; }
+.cdot { width:4px;height:4px;border-radius:50%;background:var(--lavender);flex-shrink:0;margin-top:8px; }
+
+/* Filming form */
+.film-form { background:var(--plum);padding:44px;position:relative;overflow:hidden; }
+.film-blob { width:220px;height:220px;background:radial-gradient(#C090E0,#6060D0);top:-50px;right:-50px;opacity:.2; }
+.film-title { font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:20px;color:white;margin-bottom:28px;position:relative; }
+.form-group { margin-bottom:17px; }
+.form-label { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.28);display:block;margin-bottom:7px; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+.form-input,.form-textarea { width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:12px 15px;font-family:'Cormorant',serif;font-size:16px;color:white;outline:none;transition:border-color .3s;border-radius:0; }
+.form-input::placeholder,.form-textarea::placeholder { color:rgba(255,255,255,.18); }
+.form-input:focus,.form-textarea:focus { border-color:rgba(200,168,216,.5); }
+.form-textarea { min-height:88px;resize:vertical; }
+.form-submit { width:100%;background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);border:none;padding:16px;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--plum);cursor:none;margin-top:6px;transition:opacity .3s,transform .3s; }
+.form-submit:hover { opacity:.88;transform:translateY(-2px); }
+
+/* SECTION B — nominate */
+.nominate-wrap { background:var(--plum-deep);position:relative;overflow:hidden;padding:100px 0; }
+.nominate-inner { max-width:1300px;margin:0 auto;padding:0 80px;position:relative; }
+.nom-label { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:14px; }
+.nom-title { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(32px,3.5vw,50px);line-height:.93;letter-spacing:-.02em;color:white;margin-bottom:20px; }
+.nom-title em { font-style:normal;color:var(--lavender); }
+.nom-body { font-size:19px;line-height:1.8;color:rgba(255,255,255,.4);font-weight:300;font-style:italic;max-width:580px;margin-bottom:52px; }
+.nom-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start; }
+.nom-bullets { list-style:none;display:flex;flex-direction:column;gap:0; }
+.nom-bullets li { display:flex;align-items:baseline;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:16px;color:rgba(255,255,255,.42);font-weight:300; }
+.nom-bullets li:last-child { border-bottom:none; }
+.ndot { width:5px;height:5px;border-radius:50%;background:linear-gradient(135deg,#C0A0F0,#A0C8F8);flex-shrink:0;margin-top:8px; }
+
+/* Nom form */
+.nom-form-label { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.28);display:block;margin-bottom:7px; }
+
+/* FOOTER */
+footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;overflow:hidden; }
+.footer-inner { display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:28px;margin-bottom:24px; }
+.footer-brand { font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:20px;letter-spacing:-.01em; }
+.footer-nav { display:flex;gap:28px; }
+.footer-nav a { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s; }
+.footer-nav a:hover { color:white; }
+.footer-copy { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.15); }
+
+@media(max-width:1024px){
+  nav{padding:20px 32px;} nav.scrolled{padding:14px 32px;}
+  .section-a,.nom-grid{grid-template-columns:1fr;gap:56px;}
+  .section-a{padding:80px 40px;}
+  .nominate-inner{padding:0 40px;}
+  footer{padding:44px 40px 28px;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .hero-btns{flex-direction:column;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-nav{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="./index.html" class="nav-logo irid">FlowerNova</a>
+  <ul class="nav-links">
+    <li><a href="flowernova-website.html#about">About</a></li>
+    <li><a href="./flowernova-socials.html">Socials</a></li>
+    <li><a href="./flowernova-community.html">Community Project</a></li>
+    <li><a href="./index.html#services">Floral Services</a></li>
+  </ul>
+  <a href="#nominate" class="nav-cta">Nominate someone</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">FlowerNova</span>
+    <h1 class="hero-title">The Community<br>Project</h1>
+    <p class="hero-sub">I meet people in the city, make them flowers, and share their story — one episode at a time.</p>
+    <div class="hero-btns">
+      <a href="#invited" class="btn-irid">I was invited</a>
+      <a href="#nominate" class="btn-ghost">Nominate someone →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Learn more</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SECTION A: If I reached out to you -->
+<section class="section-a" id="invited">
+  <div>
+    <span class="sec-label reveal">If I reached out to you</span>
+    <h2 class="sec-title reveal rd1">Here's what<br>it <em>looks like</em></h2>
+    <p class="sec-body reveal rd2">If you received a message from me, this page explains what participation involves and how to pick a filming date. It's low-pressure and entirely at your pace.</p>
+
+    <div class="steps">
+      <div class="step reveal rd2">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">A quick pre-chat</div>
+          <div class="step-desc">About 10 minutes — to meet, answer questions, and make sure it feels right.</div>
+        </div>
+      </div>
+      <div class="step reveal rd3">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">We meet and I make you flowers</div>
+          <div class="step-desc">60–90 minutes together. We talk, I arrange, and we let things unfold naturally.</div>
+        </div>
+      </div>
+      <div class="step reveal rd3">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">You receive the finished video and photos</div>
+          <div class="step-desc">Yours to share however feels right — no obligations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="comfort-card reveal">
+      <span class="comfort-title">A note on comfort</span>
+      <ul class="comfort-list">
+        <li><span class="cdot"></span>We keep it natural and low-pressure throughout</li>
+        <li><span class="cdot"></span>You can skip any question — no explanation needed</li>
+        <li><span class="cdot"></span>You choose what to share — light or deeper, it's up to you</li>
+      </ul>
+    </div>
+
+    <div class="film-form reveal rd1">
+      <div class="blob film-blob"></div>
+      <div class="film-title">Request a filming date</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your name</label>
+          <input type="text" class="form-input" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email or Instagram</label>
+          <input type="text" class="form-input" placeholder="How to reach you">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your neighbourhood</label>
+        <input type="text" class="form-input" placeholder="Where in the city?">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Availability windows</label>
+        <input type="text" class="form-input" placeholder="e.g. weekday mornings, weekend afternoons">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anything you'd like to share</label>
+        <textarea class="form-textarea" placeholder="Totally optional — any context, questions, or notes..."></textarea>
+      </div>
+      <button class="form-submit">Send →</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECTION B: Nominations -->
+<div class="nominate-wrap" id="nominate">
+  <div class="blob" style="width:400px;height:400px;background:radial-gradient(#9060D0,#5040B0);top:-100px;right:-80px;opacity:.18;"></div>
+  <div class="blob" style="width:260px;height:260px;background:radial-gradient(#E0B030,#D05070);bottom:-60px;left:-60px;opacity:.15;animation-delay:-4s;"></div>
+  <div class="nominate-inner">
+    <span class="nom-label reveal">Nominations</span>
+    <h2 class="nom-title reveal rd1">Know someone who brings<br><em>light</em> to their community?</h2>
+    <p class="nom-body reveal rd2">Nominate them for an episode. Stories can be quiet and simple — they don't need to be performative.</p>
+
+    <div class="nom-grid">
+      <ul class="nom-bullets">
+        <li class="reveal rd1"><span class="ndot"></span>Toronto-based individuals or small businesses</li>
+        <li class="reveal rd2"><span class="ndot"></span>Community builders, quiet heroes, everyday magic</li>
+        <li class="reveal rd3"><span class="ndot"></span>Simple stories welcome — not just the loud ones</li>
+      </ul>
+
+      <div class="reveal rd2">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nominee's name</label>
+            <input type="text" class="form-input" placeholder="Who are you nominating?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Their contact or Instagram</label>
+            <input type="text" class="form-input" placeholder="So Aliza can reach them">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Why them?</label>
+          <textarea class="form-textarea" placeholder="Tell us a little about them and their story..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Their neighbourhood</label>
+            <input type="text" class="form-input" placeholder="Where are they based?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your name + contact</label>
+            <input type="text" class="form-input" placeholder="So we can follow up with you">
+          </div>
+        </div>
+        <button class="form-submit">Submit nomination →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="blob" style="width:320px;height:320px;background:radial-gradient(#7050B0,#3020A0);top:-70px;left:-70px;opacity:.16;"></div>
+  <div class="footer-inner">
+    <div class="footer-brand irid">FlowerNova Studio</div>
+    <nav class="footer-nav">
+      <a href="./index.html">Home</a>
+      <a href="./flowernova-socials.html">Socials</a>
+      <a href="./flowernova-community.html">Community Project</a>
+      <a href="./index.html#services">Floral Services</a>
+      <a href="flowernova-website.html#about">About</a>
+    </nav>
+  </div>
+  <div class="footer-copy">© 2025 FlowerNova Studio · Aliza Markovitch · Toronto</div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+(function animRing(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; ring.style.width='56px'; ring.style.height='56px'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.width='8px'; cursor.style.height='8px'; ring.style.width='36px'; ring.style.height='36px'; });
+});
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+setTimeout(() => reveals.forEach(el => { if(el.getBoundingClientRect().top > window.innerHeight) el.classList.add('hidden'); }), 100);
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.remove('hidden'); e.target.classList.add('visible'); }}), { threshold:.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
