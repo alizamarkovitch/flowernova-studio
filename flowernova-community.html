@@ -24,23 +24,23 @@ body { background:var(--cream); font-family:'Cormorant',serif; color:var(--plum)
 .rd1{transition-delay:.12s;} .rd2{transition-delay:.24s;} .rd3{transition-delay:.36s;}
 
 /* NAV */
-nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;transition:background .4s,padding .4s; }
-nav.scrolled { background:rgba(250,246,240,.92);backdrop-filter:blur(12px);padding:16px 60px;border-bottom:1px solid rgba(61,31,78,.08); }
+#nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;transition:background .4s,padding .4s; }
+#nav.scrolled { background:rgba(250,246,240,.92);backdrop-filter:blur(12px);padding:16px 60px;border-bottom:1px solid rgba(61,31,78,.08); }
 .nav-logo { font-family:'Playfair Display',serif;font-weight:900;font-size:18px;color:white;text-decoration:none; }
-nav.scrolled .nav-logo { -webkit-text-fill-color:transparent; }
+#nav.scrolled .nav-logo { -webkit-text-fill-color:transparent; }
 .nav-links { display:flex;align-items:center;gap:36px;list-style:none; }
 .nav-links a { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);text-decoration:none;transition:color .3s;position:relative; }
 .nav-links a::after { content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:linear-gradient(90deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);transform:scaleX(0);transition:transform .3s;transform-origin:left; }
 .nav-links a:hover::after { transform:scaleX(1); }
-nav.scrolled .nav-links a { color:var(--mauve); }
+#nav.scrolled .nav-links a { color:var(--mauve); }
 .nav-cta { font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:white;border:1px solid rgba(255,255,255,.3);padding:10px 22px;text-decoration:none;transition:all .3s; }
 .nav-cta:hover { background:white;color:var(--plum); }
-nav.scrolled .nav-cta { color:var(--plum);border-color:var(--mauve); }
-nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
+#nav.scrolled .nav-cta { color:var(--plum);border-color:var(--mauve); }
+#nav.scrolled .nav-cta:hover { background:var(--plum);color:white; }
 
 /* HERO */
 #hero { min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:9vh; }
-.hero-photo { position:absolute;inset:0;background:url('https://i.imgur.com/CPG50Yy.jpeg') center center/cover no-repeat;animation:heroZoom 12s ease forwards; }
+.hero-photo { position:absolute;inset:0;background:url('https://i.imgur.com/CPG50Yy.jpeg') center 15%/cover no-repeat;animation:heroZoom 12s ease forwards; }
 .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(38,13,54,.28) 0%,rgba(38,13,54,.15) 35%,rgba(38,13,54,.72) 70%,rgba(38,13,54,.95) 100%); }
 .hero-content { position:relative;z-index:2;animation:fadeUp 1.2s ease .3s forwards;opacity:0; }
 .hero-label { font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;display:block; }
@@ -122,7 +122,7 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
 .footer-copy { font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.15); }
 
 @media(max-width:1024px){
-  nav{padding:20px 32px;} nav.scrolled{padding:14px 32px;}
+  #nav{padding:20px 32px;} #nav.scrolled{padding:14px 32px;}
   .section-a,.nom-grid{grid-template-columns:1fr;gap:56px;}
   .section-a{padding:80px 40px;}
   .nominate-inner{padding:0 40px;}
@@ -263,8 +263,7 @@ footer { background:var(--plum-deep);padding:48px 80px 32px;position:relative;ov
 
   <!-- YouTube channel link -->
   <div class="reveal rd3" style="text-align:center;">
-    <!-- Replace # with your YouTube channel URL -->
-    <a href="#" target="_blank" class="btn-irid" style="font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 44px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s;">Watch on YouTube →</a>
+    <a href="https://www.youtube.com/@alizaflowernova/shorts" target="_blank" class="btn-irid" style="font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--plum);background:linear-gradient(135deg,#F0C0E0,#C0A0F0,#A0C8F8,#F0E080);padding:15px 44px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .3s;">Watch on YouTube →</a>
   </div>
 </section>
 
